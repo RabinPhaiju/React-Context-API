@@ -1,0 +1,21 @@
+{
+  "transactions": [
+    {
+      "id": 75665977,
+      "text": "erer",
+      "amount": -77
+    },
+    {
+      "id": 7827275,
+      "text": "Project",
+      "amount": 450
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "rbnph",
+      "name": "Rabin"
+    }
+  ]
+}
