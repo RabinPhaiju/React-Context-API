@@ -34,19 +34,19 @@ export const GlobalProvider = ({ children }) => {
   }, []);
 
   const fetchTransactions = async () => {
-    const res = await fetch("http://localhost:3000/transactions");
+    const res = await fetch("http://localhost:3004/transactions");
     const data = await res.json();
     return data;
   };
   const fetchUsers = async () => {
-    const res = await fetch("http://localhost:3000/users");
+    const res = await fetch("http://localhost:3004/users");
     const data = await res.json();
     return data;
   };
 
   // Actions
   const deleteTransaction = async (id) => {
-    await fetch(`http://localhost:3000/transactions/${id}`, {
+    await fetch(`http://localhost:3004/transactions/${id}`, {
       method: "DELETE",
     });
     dispatch({
@@ -56,7 +56,7 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const editTransaction = async (id, text, amount) => {
-    await fetch(`http://localhost:3000/transactions/${id}`, {
+    await fetch(`http://localhost:3004/transactions/${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
@@ -71,7 +71,7 @@ export const GlobalProvider = ({ children }) => {
   };
 
   const addTransaction = async (transaction) => {
-    const res = await fetch("http://localhost:3000/transactions", {
+    const res = await fetch("http://localhost:3004/transactions", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
