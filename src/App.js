@@ -5,26 +5,31 @@ import { Balance } from "./components/Balance";
 import { IncomeExpenses } from "./components/IncomeExpense";
 import { TransactionList } from "./components/TransactionList";
 import { AddTransaction } from "./components/AddTransactions";
+import NotFound from "./components/notfound/NotFound";
 
-import { GlobalProvider } from "./context/GlobalState";
+import { ExpenseProvider } from "./context/expense/expenseState";
+import { UserProvider } from "./context/user/userState";
 
 import "./App.css";
 
 function App() {
   return (
-    <GlobalProvider>
-      <Router>
-        <Header />
-        <div className='container'>
-          <Balance />
-          <IncomeExpenses />
-          <Switch>
-            <Route path='/history' exact component={TransactionList} />
-            <Route path='/add' exact component={AddTransaction} />
-          </Switch>
-        </div>
-      </Router>
-    </GlobalProvider>
+    <UserProvider>
+      <ExpenseProvider>
+        <Router>
+          <Header />
+          <div className='container'>
+            <Balance />
+            <IncomeExpenses />
+            <Switch>
+              <Route path='/' exact component={TransactionList} />
+              <Route path='/add' exact component={AddTransaction} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
+        </Router>
+      </ExpenseProvider>
+    </UserProvider>
   );
 }
 

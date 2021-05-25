@@ -1,11 +1,11 @@
 import React, { useState, useContext } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { ExpenseContext } from "../context/expense/expenseState";
 
 export const AddTransaction = () => {
   const [text, setText] = useState("");
   const [amount, setAmount] = useState(0);
 
-  const { addTransaction } = useContext(GlobalContext);
+  const { addTransaction } = useContext(ExpenseContext);
 
   const onSubmit = (e) => {
     e.preventDefault();

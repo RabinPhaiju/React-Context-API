@@ -1,26 +1,35 @@
+import {
+  TRANSACTION_ADD,
+  TRANSACTION_DELETE,
+  TRANSACTION_EDIT,
+  TRANSACTION_FETCH,
+  TRANSACTION_SET_LOADING,
+} from "../types";
+
 const AppReducer = (state, action) => {
   switch (action.type) {
-    case "DELETE_TRANSACTION":
+    case TRANSACTION_SET_LOADING:
+      return {
+        ...state,
+        tran_loading: true,
+      };
+    case TRANSACTION_DELETE:
       return {
         ...state,
         transactions: state.transactions.filter((transaction) => transaction.id !== action.payload),
       };
-    case "ADD_TRANSACTION":
+    case TRANSACTION_ADD:
       return {
         ...state,
         transactions: [action.payload, ...state.transactions],
       };
-    case "FETCH_TRANSACTION":
+    case TRANSACTION_FETCH:
       return {
         ...state,
         transactions: action.payload,
+        tran_loading: false,
       };
-    case "FETCH_USER":
-      return {
-        ...state,
-        users: action.payload,
-      };
-    case "EDIT_TRANSACTION":
+    case TRANSACTION_EDIT:
       return {
         ...state,
         transactions: state.transactions.map((transaction) =>

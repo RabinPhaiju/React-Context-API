@@ -18,8 +18,8 @@ const Header = () => {
         <Link className='item' to='/add'>
           Add
         </Link>
-        <Link className='item' to='history'>
-          History
+        <Link className='item' to='notfound'>
+          Lost
         </Link>
       </div>
     </div>

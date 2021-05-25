@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import { GlobalContext } from "../context/GlobalState";
+import { ExpenseContext } from "../context/expense/expenseState";
 
 //Money formatter function
 function moneyFormatter(num) {
@@ -18,7 +18,7 @@ function moneyFormatter(num) {
 }
 
 export const Transaction = ({ transaction }) => {
-  const { deleteTransaction, editTransaction } = useContext(GlobalContext);
+  const { deleteTransaction, editTransaction } = useContext(ExpenseContext);
   const [editAmount, setEditAmount] = useState(false);
   const [ammount, setAmount] = useState(0);
 

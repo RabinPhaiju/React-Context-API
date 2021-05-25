@@ -1,45 +1,43 @@
-import React, { createContext, useReducer, useEffect } from "react";
-import AppReducer from "./AppReducer";
+import React, { useReducer, useEffect, createContext } from "react";
+import expenseReducer from "./expenseReducer";
+import {
+  TRANSACTION_ADD,
+  TRANSACTION_DELETE,
+  TRANSACTION_EDIT,
+  TRANSACTION_FETCH,
+  TRANSACTION_SET_LOADING,
+} from "../types";
 
 // Initial state
 const initialState = {
   transactions: [],
-  users: [],
+  tran_loading: false,
 };
 
 // Create context
-export const GlobalContext = createContext(initialState);
+export const ExpenseContext = createContext(initialState);
 
 // Provider component
-export const GlobalProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(AppReducer, initialState);
+export const ExpenseProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(expenseReducer, initialState);
 
   useEffect(() => {
     const getTransactions = async () => {
+      setLoading();
       const transactionsJson = await fetchTransactions();
       dispatch({
-        type: "FETCH_TRANSACTION",
+        type: TRANSACTION_FETCH,
         payload: transactionsJson,
       });
     };
-    const getUsers = async () => {
-      const usersJson = await fetchUsers();
-      dispatch({
-        type: "FETCH_USER",
-        payload: usersJson,
-      });
-    };
-    getUsers();
     getTransactions();
   }, []);
 
+  // Set loading
+  const setLoading = () => dispatch({ type: TRANSACTION_SET_LOADING });
+
   const fetchTransactions = async () => {
     const res = await fetch("http://localhost:3004/transactions");
-    const data = await res.json();
-    return data;
-  };
-  const fetchUsers = async () => {
-    const res = await fetch("http://localhost:3004/users");
     const data = await res.json();
     return data;
   };
@@ -50,7 +48,7 @@ export const GlobalProvider = ({ children }) => {
       method: "DELETE",
     });
     dispatch({
-      type: "DELETE_TRANSACTION",
+      type: TRANSACTION_DELETE,
       payload: id,
     });
   };
@@ -64,7 +62,7 @@ export const GlobalProvider = ({ children }) => {
       body: JSON.stringify({ id, text, amount }),
     });
     dispatch({
-      type: "EDIT_TRANSACTION",
+      type: TRANSACTION_EDIT,
       payload_id: id,
       payload_amount: amount,
     });
@@ -80,22 +78,22 @@ export const GlobalProvider = ({ children }) => {
     });
     const data = await res.json();
     dispatch({
-      type: "ADD_TRANSACTION",
+      type: TRANSACTION_ADD,
       payload: data,
     });
   };
 
   return (
-    <GlobalContext.Provider
+    <ExpenseContext.Provider
       value={{
         transactions: state.transactions,
-        users: state.users,
+        tran_loading: state.tran_loading,
         deleteTransaction,
         editTransaction,
         addTransaction,
       }}
     >
       {children}
-    </GlobalContext.Provider>
+    </ExpenseContext.Provider>
   );
 };

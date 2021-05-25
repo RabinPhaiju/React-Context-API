@@ -4,6 +4,11 @@
       "id": 7827275,
       "text": "Project",
       "amount": 450
+    },
+    {
+      "id": 885545,
+      "text": "Rent",
+      "amount": -100
     }
   ],
   "users": [
