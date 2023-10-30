@@ -2,12 +2,16 @@ import React, { useContext } from "react";
 import { Transaction } from "./Transaction";
 import spinner from "./spinner.gif";
 import { ExpenseContext } from "../context/expense/expenseState";
+import { Balance } from "../components/Balance";
+import { IncomeExpenses } from "../components/IncomeExpense";
 
 export const TransactionList = () => {
   const { transactions, tran_loading } = useContext(ExpenseContext);
 
   return (
     <div>
+      <Balance />
+      <IncomeExpenses />  
       <h3>History</h3>
       {tran_loading ? (
         <div style={{ textAlign: "center" }}>
