@@ -43,28 +43,30 @@ export const ExpenseProvider = ({ children }) => {
   };
 
   // Actions
-  const deleteTransaction = async (id) => {
-    await fetch(`http://localhost:3004/transactions/${id}`, {
+  const deleteTransaction = (id) => {
+    fetch(`http://localhost:3004/transactions/${id}`, {
       method: "DELETE",
-    });
-    dispatch({
-      type: TRANSACTION_DELETE,
-      payload: id,
-    });
+    }).then(()=>{
+      dispatch({
+        type: TRANSACTION_DELETE,
+        payload: id,
+      });
+    })
   };
 
-  const editTransaction = async (id, text, amount) => {
-    await fetch(`http://localhost:3004/transactions/${id}`, {
+  const editTransaction =(id, text, amount) => {
+    fetch(`http://localhost:3004/transactions/${id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",
       },
       body: JSON.stringify({ id, text, amount }),
-    });
-    dispatch({
-      type: TRANSACTION_EDIT,
-      payload_id: id,
-      payload_amount: amount,
+    }).then(()=>{
+      dispatch({
+        type: TRANSACTION_EDIT,
+        payload_id: id,
+        payload_amount: amount,
+      });
     });
   };
 
